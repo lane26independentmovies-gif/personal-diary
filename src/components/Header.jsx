@@ -1,4 +1,4 @@
-function Header() {
+function Header({ onAddEntry }) {
   return (
     <div className="px-6 pt-6 md:px-10 md:pt-8">
       <header
@@ -27,6 +27,7 @@ function Header() {
 
         <button
           type="button"
+          onClick={onAddEntry}
           className="
             rounded-lg
             border border-rose-300/60

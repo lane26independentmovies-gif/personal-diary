@@ -1,7 +1,15 @@
-function EntryCard({ title, date, imageUrl, content }) {
+function EntryCard({ title, date, imageUrl, content, createdAt, onClick }) {
+  const formattedTime = createdAt
+    ? new Date(createdAt).toLocaleTimeString("de-DE", {
+        hour: "2-digit",
+        minute: "2-digit",
+      })
+    : "";
+
   return (
     <article
-      className="
+    onClick={onClick}
+    className="
     group cursor-pointer overflow-hidden rounded-2xl
     border border-rose-300/70
     bg-black/70
@@ -16,7 +24,10 @@ function EntryCard({ title, date, imageUrl, content }) {
       <img src={imageUrl} alt={title} className="h-48 w-full object-cover" />
 
       <div className="p-5">
-        <p className="text-sm text-orange-200/70">{date}</p>
+        <p className="text-sm text-orange-200/70">
+          {date}
+          {formattedTime && ` · ${formattedTime} Uhr`}
+        </p>
 
         <h3 className="mt-1 text-2xl font-semibold text-white">{title}</h3>
 
