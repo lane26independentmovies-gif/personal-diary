@@ -15,7 +15,6 @@ The design is inspired by my personal interests in movies, technology, computers
 - 📝 Store a title, date and diary content
 - 💾 Save entries using localStorage
 - 🔄 Load saved entries when the application starts
-- 📆 One diary entry per day
 - 🗂️ Display entries from newest to oldest
 - 🃏 Diary entries displayed as cards
 - 🔍 Open an entry to view its full details
@@ -23,6 +22,10 @@ The design is inspired by my personal interests in movies, technology, computers
 - ✅ Form validation
 - 🎨 Retro 80s-inspired design
 - 📱 Responsive layout
+- ✏️ Edit existing diary entries
+- 🗑️ Delete entries with confirmation
+- 📝 Create multiple entries per day
+- 📭 Show a helpful message when the diary is empty
 
 ---
 
@@ -62,15 +65,15 @@ personal-diary/
 │   └── images/
 ├── src/
 │   ├── components/
+│   │   ├── AddEntryModal.jsx
+│   │   ├── EntryCard.jsx
 │   │   ├── Header.jsx
-│   │   └── EntryCard.jsx
+│   │   └── ViewEntryModal.jsx
 │   ├── App.jsx
 │   ├── index.css
 │   └── main.jsx
 ├── package.json
 └── vite.config.js
-
-
 ```
 
 ## 🚀 Run the Project Locally

@@ -1,33 +1,71 @@
-import { useState } from "react";
+import {  useState, useEffect } from 'react'; 
 import Header from "./components/Header";
 import EntryCard from "./components/EntryCard";
+import AddEntryModal from "./components/AddEntryModal";
+import ViewEntryModal from "./components/ViewEntryModal";
 
 
 function App() {
-  const [entries, setEntries] = useState([
-    {
-      id: 1,
-      title: "Movie Night",
-      date: "2026-09-28",
-      imageUrl: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba",
-      content: "A quiet evening, an old movie and way too much popcorn...",
-    },
-    {
-      id: 2,
-      title: "Coding Session",
-      date: "2026-09-27",
-      imageUrl: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4",
-      content:
-        "Worked on my React project and learned more about components and props.",
-    },
-    {
-      id: 3,
-      title: "80's Inspiration",
-      date: "2026-09-26",
-      imageUrl: "https://images.unsplash.com/photo-1519608487953-e999c86e7455",
-      content: "Music, movies and a little bit of retro inspiration.",
-    },
-  ]);
+  const [entries, setEntries] = useState(() => {
+    try {
+      const savedEntries = localStorage.getItem("diaryEntries");
+
+      if (!savedEntries) {
+        return [];
+      }
+
+      const parsedEntries = JSON.parse(savedEntries);
+
+      return Array.isArray(parsedEntries) ? parsedEntries : [];
+    } catch (error) {
+      console.error("Matrix error:", error);
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem("diaryEntries", JSON.stringify(entries));
+  }, [entries]);
+
+    const [selectedEntry, setSelectedEntry] = useState(null);
+    const [editingEntry, setEditingEntry] = useState(null);
+
+  function handleAddEntry(newEntry) {
+    const entryWithId = {
+      ...newEntry,
+      id: crypto.randomUUID(),
+    };
+
+    setEntries((currentEntries) => [...currentEntries, entryWithId]);
+  }
+
+  function handleUpdateEntry(updatedEntry) {
+    setEntries((currentEntries) =>
+      currentEntries.map((entry) =>
+        entry.id === updatedEntry.id ? updatedEntry : entry,
+      ),
+    );
+
+    setEditingEntry(null);
+  }
+
+  function handleDeleteEntry(entryToDelete) {
+    const confirmed = window.confirm(
+      `Delete "${entryToDelete.title}"? This cannot be undone.`,
+    );
+
+    if (!confirmed) return;
+
+    setEntries((currentEntries) =>
+      currentEntries.filter((entry) => entry.id !== entryToDelete.id),
+    );
+    setSelectedEntry(null);
+  }
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+
+  const sortedEntries = [...entries].sort(
+    (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+  );
 
   return (
     <main
@@ -37,22 +75,56 @@ function App() {
       }}
     >
       <div className="min-h-screen bg-black/20">
-        <Header />
+        <Header onAddEntry={() => setIsAddModalOpen(true)} />
         <section className="mx-auto max-w-7xl px-6 py-10 md:px-10">
-          <h2 className="mb-6 text-3xl font-semibold text-white">My Entries</h2>
+          <h2 className="mb-6 text-3xl font-semibold text-white">The Matrix</h2>
+
+          {entries.length === 0 && (
+            <p className="rounded-2xl border border-rose-300/40 bg-black/60 p-6 text-white/80">
+              Your brain 🧠 is empty. Please insert a coin 😝 to Click “Add
+              Entry” and create your first memory.
+            </p> 
+          )}
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {entries.map((entry) => (
+            {sortedEntries.map((entry) => (
               <EntryCard
                 key={entry.id}
                 title={entry.title}
                 date={entry.date}
+                createdAt={entry.createdAt}
                 imageUrl={entry.imageUrl}
                 content={entry.content}
+                onClick={() => setSelectedEntry(entry)}
               />
             ))}
           </div>
         </section>
+
+        {isAddModalOpen && (
+          <AddEntryModal
+            onClose={() => {
+              setIsAddModalOpen(false);
+              setEditingEntry(null);
+            }}
+            onAddEntry={handleAddEntry}
+            onUpdateEntry={handleUpdateEntry}
+            editingEntry={editingEntry}
+          />
+        )}
+
+        {selectedEntry && (
+          <ViewEntryModal
+            entry={selectedEntry}
+            onClose={() => setSelectedEntry(null)}
+            onDelete={() => handleDeleteEntry(selectedEntry)}
+            onEdit={() => {
+              setEditingEntry(selectedEntry);
+              setSelectedEntry(null);
+              setIsAddModalOpen(true);
+            }}
+          />
+        )}
       </div>
     </main>
   );
