@@ -72,3 +72,51 @@ personal-diary/
 
 
 ```
+
+## 🚀 Run the Project Locally
+
+Clone the repository:
+
+```bash
+git clone https://github.com/DEIN-USERNAME/personal-diary.git
+```
+
+Open the project folder:
+
+```bash
+cd personal-diary
+```
+
+Install the dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Then open the local URL shown by Vite in your browser.
+
+---
+
+## 🎯 Project Goal
+
+The goal of this project is to practice building an interactive React application while working with state, effects, forms, components and browser storage.
+
+The project was created as part of my **Software Engineering & AI training at WBS CODING SCHOOL**.
+
+---
+
+## 🌐 Deployment
+
+The finished application will be deployed as a static site on **Render**.
+
+---
+
+## 👤 Author
+
+Created by **Eric**.
