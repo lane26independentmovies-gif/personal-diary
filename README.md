@@ -1,16 +1,73 @@
-# React + Vite
+# 📖 My Personal Diary
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+My Personal Diary is a personal diary web application built with React.
 
-Currently, two official plugins are available:
+The application allows users to create and revisit daily diary entries including a title, date, image and personal notes.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+The design is inspired by my personal interests in movies, technology, computers and the 1980s, combining a retro atmosphere with a modern user interface.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Features
 
-## Expanding the ESLint configuration
+- 📅 Create personal diary entries
+- 🖼️ Add an image to each entry
+- 📝 Store a title, date and diary content
+- 💾 Save entries using localStorage
+- 🔄 Load saved entries when the application starts
+- 📆 One diary entry per day
+- 🗂️ Display entries from newest to oldest
+- 🃏 Diary entries displayed as cards
+- 🔍 Open an entry to view its full details
+- ➕ Add new entries through a modal
+- ✅ Form validation
+- 🎨 Retro 80s-inspired design
+- 📱 Responsive layout
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Built With
+
+- React
+- Vite
+- JavaScript
+- Tailwind CSS
+- DaisyUI
+- HTML
+- CSS
+- LocalStorage
+
+---
+
+## 🧩 React Concepts
+
+This project uses several React concepts that I learned during the course:
+
+- Components
+- Props
+- `useState`
+- `useEffect`
+- Event handling
+- Conditional rendering
+- Rendering lists with `.map()`
+- Form handling
+
+---
+
+## 📁 Project Structure
+
+```text
+personal-diary/
+├── public/
+│   └── images/
+├── src/
+│   ├── components/
+│   │   ├── Header.jsx
+│   │   └── EntryCard.jsx
+│   ├── App.jsx
+│   ├── index.css
+│   └── main.jsx
+├── package.json
+└── vite.config.js
+
+```
