@@ -1,0 +1,192 @@
+@import "tailwindcss";
+
+/* Deadpool theme for a ToDo app. Keep this file as your ToDo project's index.css. */
+@theme {
+  --color-blood-400: #fb7185;
+  --color-blood-500: #e11d48;
+  --color-blood-600: #be123c;
+  --color-crypt-900: #171319;
+  --color-crypt-950: #0c0a0e;
+  --font-horror: Impact, "Arial Black", ui-sans-serif, sans-serif;
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+    color: #eee8eb;
+    background: #0c0a0e;
+    accent-color: #e11d48;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100svh;
+    background:
+      radial-gradient(ellipse at 15% 0%, #9f123929, transparent 45%),
+      radial-gradient(ellipse at 90% 80%, #70607915, transparent 50%),
+      linear-gradient(90deg, #0c0a0ef2 0%, #0c0a0ed9 48%, #0c0a0e55 100%),
+      url("https://live.staticflickr.com/7281/27122903610_eeae77dff9_o.jpg") center right / cover no-repeat;
+    background-attachment: fixed;
+  }
+
+  #root {
+    width: min(100% - 2rem, 680px);
+    margin-left: max(1rem, calc((100vw - 1200px) / 2));
+    margin-right: auto;
+    padding-block: clamp(2rem, 8vh, 6rem);
+  }
+
+  h1, h2 {
+    font-family: var(--font-horror);
+    font-weight: 700;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  h1 {
+    margin: 0 0 2rem;
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    line-height: 1.05;
+    color: #fff1f2;
+    text-shadow: 0 3px 0 #881337, 0 0 40px #e11d4833;
+  }
+
+  h2 { font-size: 1.5rem; }
+  p { color: #b8aab4; line-height: 1.65; }
+
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border: 1px solid #ffffff12;
+    border-radius: 1rem;
+    background: #1b151dcc;
+    box-shadow: 0 16px 50px #00000030;
+  }
+
+  input:not([type="checkbox"]):not([type="radio"]), textarea {
+    flex: 1 1 200px;
+    min-width: 0;
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border: 1px solid #44313e;
+    border-radius: 0.65rem;
+    background: #0e0b10;
+    color: #fff1f2;
+    font: inherit;
+    transition: border-color 160ms, box-shadow 160ms;
+  }
+
+  input::placeholder, textarea::placeholder { color: #9c8997; }
+
+  button {
+    padding: 0.8rem 1.2rem;
+    border: 1px solid #60404f;
+    border-radius: 0.65rem;
+    background: #2a1b25;
+    color: #fce7ef;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 650;
+    cursor: pointer;
+    transition: background 160ms, border-color 160ms, transform 160ms;
+  }
+
+  button:hover { background: #462331; border-color: #fb7185; }
+  button:active { transform: translateY(1px); }
+  form button { background: #be123c; border-color: #e11d48; }
+  form button:hover { background: #e11d48; }
+  button:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  :focus-visible {
+    outline: 2px solid #fb7185;
+    outline-offset: 4px;
+  }
+
+  input:not([type="checkbox"]):focus, textarea:focus {
+    border-color: #fb7185;
+    box-shadow: 0 0 0 3px #e11d481a;
+  }
+
+  ul, ol {
+    display: grid;
+    gap: 0.75rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 1rem 1.15rem;
+    border: 1px solid #ffffff12;
+    border-left: 3px solid #881337;
+    border-radius: 0.75rem;
+    background: linear-gradient(110deg, #211821, #171319);
+    overflow-wrap: anywhere;
+    transition: border-color 160ms, background 160ms;
+  }
+
+  li:hover { border-color: #704052; background: #251923; }
+  li label { display: flex; align-items: center; gap: 0.85rem; flex: 1; cursor: pointer; }
+  li input[type="checkbox"] { flex-shrink: 0; width: 1.15rem; height: 1.15rem; cursor: pointer; }
+  li:has(input:checked) { border-left-color: #61515e; background: #141116; }
+  li:has(input:checked) label { color: #a392a0; text-decoration: line-through; }
+  li:has(input:checked) > span { color: #a392a0; text-decoration: line-through; }
+  li > button { margin-left: auto; padding: 0.45rem 0.7rem; font-size: 0.8rem; }
+  a { color: #fda4af; text-underline-offset: 4px; }
+  ::selection { background: #9f1239; color: white; }
+}
+
+@layer components {
+  /* Optional hooks: className="todo-app", "todo-filters", "todo-empty". */
+  .todo-app {
+    padding: clamp(1rem, 4vw, 2rem);
+    border: 1px solid #5c293d;
+    border-radius: 1.5rem;
+    background: #100d13e6;
+    box-shadow: 0 30px 100px #00000066, 0 0 60px #9f123910;
+  }
+
+  .todo-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+  .todo-filters button[aria-pressed="true"],
+  .todo-filters button.active { background: #881337; border-color: #fb7185; color: white; }
+  .todo-empty { padding: 2.5rem 1rem; text-align: center; color: #b8aab4; }
+}
+
+@media (max-width: 700px) {
+  body { background-attachment: scroll; }
+  #root { margin-inline: auto; }
+}
+
+@media (max-width: 420px) {
+  form button { width: 100%; }
+  li { padding: 0.85rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; }
+}
+
+/* Background photo: Altan Dilan, CC BY 2.0.
+   https://commons.wikimedia.org/wiki/File:Deadpool_Cosplay_-_MCM_Comic_Con_2016_(27122903610).jpg
+   https://creativecommons.org/licenses/by/2.0/
+   Displayed cropped with a dark CSS overlay. */
+@layer base {
+  #root::after {
+    content: "Foto: Altan Dilan · CC BY 2.0 · zugeschnitten / abgedunkelt";
+    display: block;
+    margin-top: 2rem;
+    color: #b8aab4;
+    font-size: 0.7rem;
+    line-height: 1.6;
+  }
+}
