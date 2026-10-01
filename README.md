@@ -70,7 +70,9 @@ personal-diary/
 ├── package.json
 └── vite.config.js
 
-🚀 Run the Project Locally
+---
+
+## 🚀 Run the Project Locally
 
 Clone the repository:
 git clone YOUR-REPOSITORY-URL
@@ -86,13 +88,19 @@ npm run dev
 
 Then open the local URL shown by Vite in your browser.
 
-🎯 Project Goal
+---
+
+## 🎯 Project Goal
 The goal of this project is to practice building an interactive React application while working with state, effects, forms, components and browser storage.
 The project was created as part of my Software Engineering & AI training at WBS CODING SCHOOL.
 
-🌐 Deployment
+---
+
+## 🌐 Deployment
 The finished application will be deployed as a static site on Render.
 
-👤 Author
+---
+
+## 👤 Author
 Created by Eric
 ```
