@@ -70,37 +70,5 @@ personal-diary/
 ├── package.json
 └── vite.config.js
 
----
 
-## 🚀 Run the Project Locally
-
-Clone the repository:
-git clone YOUR-REPOSITORY-URL
-
-Open the project folder:
-cd personal-diary
-
-Install the dependencies:
-npm install
-
-Start the development server:
-npm run dev
-
-Then open the local URL shown by Vite in your browser.
-
----
-
-## 🎯 Project Goal
-The goal of this project is to practice building an interactive React application while working with state, effects, forms, components and browser storage.
-The project was created as part of my Software Engineering & AI training at WBS CODING SCHOOL.
-
----
-
-## 🌐 Deployment
-The finished application will be deployed as a static site on Render.
-
----
-
-## 👤 Author
-Created by Eric
 ```
