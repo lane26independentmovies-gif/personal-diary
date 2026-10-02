@@ -8,8 +8,8 @@ function EntryCard({ title, date, imageUrl, content, createdAt, onClick }) {
 
   return (
     <article
-    onClick={onClick}
-    className="
+      onClick={onClick}
+      className="
     group cursor-pointer overflow-hidden rounded-2xl
     border border-rose-300/70
     bg-black/70
@@ -21,7 +21,9 @@ function EntryCard({ title, date, imageUrl, content, createdAt, onClick }) {
     hover:shadow-[0_0_25px_rgba(251,113,133,0.65)]
   "
     >
-      <img src={imageUrl} alt={title} className="h-48 w-full object-cover" />
+      {imageUrl && (
+        <img src={imageUrl} alt={title} className="h-48 w-full object-cover" />
+      )}
 
       <div className="p-5">
         <p className="text-sm text-orange-200/70">

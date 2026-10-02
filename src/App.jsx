@@ -1,9 +1,8 @@
-import {  useState, useEffect } from 'react'; 
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import EntryCard from "./components/EntryCard";
 import AddEntryModal from "./components/AddEntryModal";
 import ViewEntryModal from "./components/ViewEntryModal";
-
 
 function App() {
   const [entries, setEntries] = useState(() => {
@@ -27,8 +26,8 @@ function App() {
     localStorage.setItem("diaryEntries", JSON.stringify(entries));
   }, [entries]);
 
-    const [selectedEntry, setSelectedEntry] = useState(null);
-    const [editingEntry, setEditingEntry] = useState(null);
+  const [selectedEntry, setSelectedEntry] = useState(null);
+  const [editingEntry, setEditingEntry] = useState(null);
 
   function handleAddEntry(newEntry) {
     const entryWithId = {
@@ -47,6 +46,104 @@ function App() {
     );
 
     setEditingEntry(null);
+  }
+
+  function handleAddUpdate(entryId, updateText) {
+    const newUpdate = {
+      id: crypto.randomUUID(),
+      content: updateText,
+      createdAt: new Date().toISOString(),
+    };
+
+    setEntries((currentEntries) =>
+      currentEntries.map((entry) =>
+        entry.id === entryId
+          ? {
+              ...entry,
+              updates: [...(entry.updates || []), newUpdate],
+            }
+          : entry,
+      ),
+    );
+
+    setSelectedEntry((currentEntry) => {
+      if (!currentEntry || currentEntry.id !== entryId) {
+        return currentEntry;
+      }
+
+      return {
+        ...currentEntry,
+        updates: [...(currentEntry.updates || []), newUpdate],
+      };
+    });
+  }
+
+  function handleDeleteUpdate(entryId, updateId) {
+    setEntries((currentEntries) =>
+      currentEntries.map((entry) =>
+        entry.id === entryId
+          ? {
+              ...entry,
+              updates: (entry.updates || []).filter(
+                (update) => update.id !== updateId,
+              ),
+            }
+          : entry,
+      ),
+    );
+
+    setSelectedEntry((currentEntry) => {
+      if (!currentEntry || currentEntry.id !== entryId) {
+        return currentEntry;
+      }
+
+      return {
+        ...currentEntry,
+        updates: (currentEntry.updates || []).filter(
+          (update) => update.id !== updateId,
+        ),
+      };
+    });
+  }
+
+  function handleEditUpdate(entryId, updateId, newContent) {
+    setEntries((currentEntries) =>
+      currentEntries.map((entry) =>
+        entry.id === entryId
+          ? {
+              ...entry,
+              updates: (entry.updates || []).map((update) =>
+                update.id === updateId
+                  ? {
+                      ...update,
+                      content: newContent,
+                      editedAt: new Date().toISOString(),
+                    }
+                  : update,
+              ),
+            }
+          : entry,
+      ),
+    );
+
+    setSelectedEntry((currentEntry) => {
+      if (!currentEntry || currentEntry.id !== entryId) {
+        return currentEntry;
+      }
+
+      return {
+        ...currentEntry,
+        updates: (currentEntry.updates || []).map((update) =>
+          update.id === updateId
+            ? {
+                ...update,
+                content: newContent,
+                editedAt: new Date().toISOString(),
+              }
+            : update,
+        ),
+      };
+    });
   }
 
   function handleDeleteEntry(entryToDelete) {
@@ -83,7 +180,7 @@ function App() {
             <p className="rounded-2xl border border-rose-300/40 bg-black/60 p-6 text-white/80">
               Your brain 🧠 is empty. Please insert a coin 😝 to Click “Add
               Entry” and create your first memory.
-            </p> 
+            </p>
           )}
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -118,6 +215,15 @@ function App() {
             entry={selectedEntry}
             onClose={() => setSelectedEntry(null)}
             onDelete={() => handleDeleteEntry(selectedEntry)}
+            onAddUpdate={(updateText) => {
+              handleAddUpdate(selectedEntry.id, updateText);
+            }}
+            onDeleteUpdate={(updateId) => {
+              handleDeleteUpdate(selectedEntry.id, updateId);
+            }}
+            onEditUpdate={(updateId, newContent) => {
+              handleEditUpdate(selectedEntry.id, updateId, newContent);
+            }}
             onEdit={() => {
               setEditingEntry(selectedEntry);
               setSelectedEntry(null);
